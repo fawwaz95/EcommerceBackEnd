@@ -15,7 +15,7 @@ app.use(express.static('images'));
 app.use("/ecommerce", records);
 
 app.get("/*", function (req, res) {
-  res.sendFile(path.join(__dirname, "C:/Users/admin/Documents/PersonalProjects/ecommerceapp/frontend/src/index.html"), function (err) {
+  res.sendFile(path.join(__dirname, "C:/Users/admin/Documents/PersonalProjects/ecommerceapp/frontend/src/App.js"), function (err) {
     console.log("Whats the directory path");
 
     if (err) {
