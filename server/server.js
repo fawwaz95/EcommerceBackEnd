@@ -14,6 +14,16 @@ app.use(express.static('images'));
 
 app.use("/ecommerce", records);
 
+app.get("/*", function (req, res) {
+  res.sendFile(path.join(__dirname, "C:/Users/admin/Documents/PersonalProjects/ecommerceapp/frontend/src/index.html"), function (err) {
+    console.log("Whats the directory path");
+
+    if (err) {
+      res.status(500).send(err);
+    }
+  });
+});
+
 app.listen(PORT, () => {
   console.log(`Server is running on port: ${PORT}`);
 });
