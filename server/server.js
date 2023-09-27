@@ -7,6 +7,7 @@ import { Db } from "mongodb";
 
 const PORT = process.env.PORT || 3001;
 const app = express();
+const path = require("path");
 
 app.use(cors());
 app.use(express.json());
