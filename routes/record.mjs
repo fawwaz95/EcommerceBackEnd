@@ -26,7 +26,12 @@ router.get("/Item/:item", async (req, res) => {
   res.send(results).status(200);
 });
 
-router.get("/ecommerce/*", function (req, res) {
+router.get("/*", async (req, res) => {
+  console.log("GOT ROUTE");
+  res.send("GOt route!!!").status(200);
+});
+
+/*router.get("/*", function (req, res) {
   const __dirname = path.dirname(new URL(import.meta.url).pathname);
   res.sendFile(path.join(__dirname, "public", "C:/Users/admin/Documents/PersonalProjects/ecommerceapp/frontend/public/index.html"), function (err) {
     console.log("Whats the directory path");
@@ -36,7 +41,8 @@ router.get("/ecommerce/*", function (req, res) {
       res.status(500).send(err);
     }
   });
-});
+});*/
+
 
 // This section will help you get a single record by id
 /*router.get("/:id", async (req, res) => {
