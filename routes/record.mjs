@@ -11,26 +11,18 @@ const shopCollection = await db.collection("shop");
 router.get("/Shop", async (req, res) => {
   await data();
   const results = await shopCollection.find({}).toArray();
-  console.log(`/Shop results`);
-  console.log(results);
   res.send(results).status(200);
 });
 
 router.get("/ProductID/:id", async (req, res) => {
   const prodId = req.params.id;
-  console.log(`whats the prodId we are sending to mongodb ${prodId}`);
   const results = await shopCollection.find({ "_id": prodId }).toArray();
-  console.log("/ProductID/:id results")
-  console.log(results);
-
   res.send(results).status(200);
 });
 
 router.get("/Item/:item", async (req, res) => {
   const prodName = req.params.item;
   const results = await shopCollection.find({"item": {$regex: prodName, $options: "i"}}).toArray();
-  console.log("/Item/:item results");
-  console.log(results);
   res.send(results).status(200);
 });
 // This section will help you get a single record by id

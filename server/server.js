@@ -11,18 +11,20 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
-app.use(express.static('images'));
+app.use(express.static("public"));
 
 app.use("/ecommerce", records);
 
 app.get("/*", function (req, res) {
+  res.send("Catch-all route working!");
+});
+
+
+app.get("/*", function (req, res) {
   const __dirname = path.dirname(new URL(import.meta.url).pathname);
-  res.sendFile(path.join(__dirname, "C:/Users/admin/Documents/PersonalProjects/ecommerceapp/frontend/src/index.js"), function (err) {
+  res.sendFile(path.join(__dirname, "public", "C:/Users/admin/Documents/PersonalProjects/ecommerceapp/frontend/public/index.html"), function (err) {
     console.log("Whats the directory path");
     console.log(__dirname);
-
-    console.log("Whats the req");
-    console.log(req);
 
     if (err) {
       res.status(500).send(err);
@@ -31,7 +33,6 @@ app.get("/*", function (req, res) {
 });
 
 app.listen(PORT, () => {
-  console.log("whats the port " + PORT);
   console.log(`Server is running on port: ${PORT}`);
 });
 
