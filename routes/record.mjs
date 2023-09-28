@@ -26,10 +26,6 @@ router.get("/Item/:item", async (req, res) => {
   res.send(results).status(200);
 });
 
-router.get("/*", async (req, res) => {
-  console.log("GOT ROUTE");
-  res.send("GOt route!!!").status(200);
-});
 
 /*router.get("/*", function (req, res) {
   const __dirname = path.dirname(new URL(import.meta.url).pathname);
