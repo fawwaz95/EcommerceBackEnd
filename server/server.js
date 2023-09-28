@@ -17,8 +17,12 @@ app.use("/ecommerce", records);
 
 app.get("/*", function (req, res) {
   const __dirname = path.dirname(new URL(import.meta.url).pathname);
-  res.sendFile(path.join(__dirname, "C:/Users/admin/Documents/PersonalProjects/ecommerceapp/frontend/src/App.js"), function (err) {
+  res.sendFile(path.join(__dirname, "C:/Users/admin/Documents/PersonalProjects/ecommerceapp/frontend/src/index.js"), function (err) {
     console.log("Whats the directory path");
+    console.log(__dirname);
+
+    console.log("Whats the req");
+    console.log(req);
 
     if (err) {
       res.status(500).send(err);
@@ -27,6 +31,7 @@ app.get("/*", function (req, res) {
 });
 
 app.listen(PORT, () => {
+  console.log("whats the port " + PORT);
   console.log(`Server is running on port: ${PORT}`);
 });
 
