@@ -26,7 +26,7 @@ router.get("/Item/:item", async (req, res) => {
   res.send(results).status(200);
 });
 
-router.get("/*", function (req, res) {
+router.get("/ecommerce/*", function (req, res) {
   const __dirname = path.dirname(new URL(import.meta.url).pathname);
   res.sendFile(path.join(__dirname, "public", "C:/Users/admin/Documents/PersonalProjects/ecommerceapp/frontend/public/index.html"), function (err) {
     console.log("Whats the directory path");
