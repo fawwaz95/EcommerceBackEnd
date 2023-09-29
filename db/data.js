@@ -1,9 +1,7 @@
 import db from "./conn.mjs";
 
-const  data = async () => {
-    console.log("Inside data.js");
+const data = async () => {
     const collection = db.collection("shop");
-
     const records = [
       {
         _id: "greenYankeesStrapback",
@@ -85,7 +83,6 @@ const  data = async () => {
     console.log(`${del.deletedCount} documents deleted`);
     const result = await collection.insertMany(records);
     console.log(`${result.insertedCount} documents inserted`);
-
 }
 
 export default data;

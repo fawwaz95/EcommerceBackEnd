@@ -6,10 +6,17 @@ import data from "../db/data.js";
 const router = express.Router();
 const shopCollection = await db.collection("shop");
 
-
-//This section will help you get a list of all the records.
-router.get("/Shop", async (req, res) => {
+router.get("/", async (req, res) => {
   await data();
+  res.send.status(200);
+});
+
+router.get("/Home", async (req, res) => {
+  await data();
+  res.send.status(200);
+});
+
+router.get("/Shop", async (req, res) => {
   const results = await shopCollection.find({}).toArray();
   res.send(results).status(200);
 });
