@@ -6,7 +6,7 @@ import data from "../db/data.js";
 const router = express.Router();
 const shopCollection = await db.collection("shop");
 
-router.get("/", async (req, res) => {
+/*router.get("/", async (req, res) => {
   await data();
   res.send.status(200);
 });
@@ -14,7 +14,7 @@ router.get("/", async (req, res) => {
 router.get("/Home", async (req, res) => {
   await data();
   res.send.status(200);
-});
+});*/
 
 router.get("/Shop", async (req, res) => {
   const results = await shopCollection.find({}).toArray();
