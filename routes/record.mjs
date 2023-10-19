@@ -7,7 +7,7 @@ import stripe from "stripe";
 const router = express.Router();
 const shopCollection = await db.collection("shop");
 const url = "https://paixamour.netlify.app/"
-const stripe = await stripe("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");
+const stripeSecret = await stripe("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");
 
 /*
 router.get("/", async (req, res) => {
@@ -44,7 +44,7 @@ router.post("/Checkout", async (req, res) => {
   console.log(cartItems);
 
   try {
-    const session = await stripe.checkout.sessions.create({
+    const session = await stripeSecret.checkout.sessions.create({
       line_items: cartItems.map(item => {
         return {
           price: "price_1O2QGWAPtj0Vd4LuOe4Yr8kC", // Replace with the appropriate Price ID
