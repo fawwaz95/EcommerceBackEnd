@@ -7,7 +7,7 @@ import stripe from "stripe";
 const router = express.Router();
 const shopCollection = await db.collection("shop");
 const url = "https://paixamour.netlify.app/"
-const stripeSecret = await stripe("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");
+const stripe = await stripe("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");
 
 /*
 router.get("/", async (req, res) => {
@@ -40,26 +40,28 @@ router.get("/Item/:item", async (req, res) => {
 
 router.post("/Checkout", async (req, res) => {
   const cartItems = req.body.items.line_items;
-  console.log("Whats the cartItems obj");
+  console.log("What's the cartItems obj");
   console.log(cartItems);
 
-  res.send("Checkout endpoint located").status(200);
+  try {
+    const session = await stripe.checkout.sessions.create({
+      line_items: cartItems.map(item => {
+        return {
+          price: "price_1O2QGWAPtj0Vd4LuOe4Yr8kC", // Replace with the appropriate Price ID
+          quantity: item.quantity, // Adjust the quantity based on your cart
+        };
+      }),
+      mode: 'payment',
+      success_url: `${url}/success`,
+      cancel_url: `${url}/cancel`,
+    });
 
-
-  /*const session = await stripeSecret.checkout.sessions.create({
-    line_items: [
-      {
-        // Provide the exact Price ID (for example, pr_1234) of the product you want to sell
-        price: pr_1234,
-        quantity: 1,
-      },
-    ],
-    mode: 'payment',
-    success_url: `${url}/success`,
-    cancel_url: `${url}/cancel`,
-  });
-
-  res.redirect(303, session.url);*/
+    res.json({ sessionUrl: session.url }); // Return the session URL to the client
+  } catch (e) {
+    console.error("Error on Stripe checkout session:", e);
+    res.status(500).json({ error: "An error occurred" });
+  }
 });
+
 
 export default router;
