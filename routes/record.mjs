@@ -38,30 +38,57 @@ router.get("/Item/:item", async (req, res) => {
   res.send(results).status(200);
 });
 
+router.get("/stripeGetAllProds", async (req, res) => {
+  try {
+    const products = await stripeSecret.products.list({
+      limit: 3,
+    });
+
+    const prodList = products.data;
+    console.log("All products");
+    console.log(prodList);
+
+    res.setHeader('Cache-Control', 'no-store');
+    res.json(prodList).status(200);
+  } catch (error) {
+    console.error("Error fetching products:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
 router.post("/Checkout", async (req, res) => {
-  const cartItems = req.body.items.line_items;
-  console.log("What's the cartItems obj");
+  const cartItems = req.body.priceIdsArray;
+  console.log("What's the cartItems array:");
   console.log(cartItems);
 
   try {
+    const lineItems = cartItems.map((item) => {
+      return {
+        price: item, 
+        quantity: 1, // Adjust the quantity based on your cart later!
+      };
+    });
+
+    console.log("Line Items for Stripe Checkout:");
+    console.log(lineItems);
+
     const session = await stripeSecret.checkout.sessions.create({
-      line_items: cartItems.map(item => {
-        return {
-          price: "price_1O2QGWAPtj0Vd4LuOe4Yr8kC", // Replace with the appropriate Price ID
-          quantity: item.quantity, // Adjust the quantity based on your cart
-        };
-      }),
+      line_items: lineItems,
       mode: 'payment',
       success_url: `${url}/success`,
       cancel_url: `${url}/cancel`,
     });
 
-    res.json({ sessionUrl: session.url }); // Return the session URL to the client
+    console.log("Stripe Checkout Session created successfully.");
+    console.log("Session URL:", session.url);
+
+    res.json({ sessionUrl: session.url });
   } catch (e) {
     console.error("Error on Stripe checkout session:", e);
     res.status(500).json({ error: "An error occurred" });
   }
 });
+
 
 
 export default router;
