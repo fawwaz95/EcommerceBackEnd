@@ -58,8 +58,6 @@ router.get("/stripeGetAllProds", async (req, res) => {
 
 router.post("/Checkout", async (req, res) => {
   const cartItems = req.body.priceIdsArray;
-  console.log("What's the cartItems array:");
-  console.log(cartItems);
 
   try {
     const lineItems = cartItems.map((item) => {
