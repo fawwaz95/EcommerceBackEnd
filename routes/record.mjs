@@ -77,7 +77,7 @@ router.post("/Checkout", async (req, res) => {
       cancel_url: `${url}/cancel`,
     });
 
-    console.log("Stripe Checkout Session created successfully.");
+    console.log("Stripe Checkout Session created successfully");
     console.log("Session URL:", session.url);
 
     res.json({ sessionUrl: session.url });
