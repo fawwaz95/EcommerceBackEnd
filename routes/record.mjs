@@ -7,8 +7,13 @@ import stripe from "stripe";
 const router = express.Router();
 const shopCollection = await db.collection("shop");
 const url = "https://paixamour.netlify.app/"
-const stripeSecret = await stripe("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");
+const stripeLiveSecret = await stripe("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");
+const stripeTestSecret = await stripe("sk_test_51NsCgFAPtj0Vd4Luk30RAsMz8znGEQvepK26102pX4KXgUSBDuEQYleMI4tmM2lcYDjeoB2p47FAyTOIaJ6v5mkQ00Mfe4rjfW");
 
+const formatProdName = (prodName) => {
+  const productName = prodName.toLowerCase().replace(/\s/g, '');
+  return productName;
+}
 /*
 router.get("/", async (req, res) => {
   await data();
@@ -38,18 +43,38 @@ router.get("/Item/:item", async (req, res) => {
   res.send(results).status(200);
 });
 
-router.get("/stripeGetAllProds", async (req, res) => {
+router.post("/stripeGetProds", async (req, res) => {
+  const cartItems = req.body.cart;
+
   try {
-    const products = await stripeSecret.products.list({
-      limit: 3,
+    const products = await stripeTestSecret.products.list({
+      limit: 10,
     });
 
     const prodList = products.data;
-    console.log("All products");
-    console.log(prodList);
+
+    const productArray = prodList.flatMap(prodItems => {
+      const cartObj = cartItems.find(cart => {
+        const cartItemProd = formatProdName(cart._id);
+        const stripeProd = formatProdName(prodItems.description);
+
+        return cartItemProd.includes(stripeProd);
+      });
+
+      if (cartObj) {
+        return {
+          priceId: prodItems.default_price,
+          prodName: prodItems.description,
+          qty: cartObj.quantity
+        };
+      }
+    });
+
+    console.log("productArray /stripeGetProds");
+    console.log(productArray);
 
     res.setHeader('Cache-Control', 'no-store');
-    res.json(prodList).status(200);
+    res.json(productArray).status(200);
   } catch (error) {
     console.error("Error fetching products:", error);
     res.status(500).json({ error: "Internal Server Error" });
@@ -57,27 +82,23 @@ router.get("/stripeGetAllProds", async (req, res) => {
 });
 
 router.post("/Checkout", async (req, res) => {
-  const cartItems = req.body.priceIdsArray;
+  const cartProdsArray = req.body.prodArray;
 
   try {
-    const lineItems = cartItems.map((item) => {
+    const lineItems = cartProdsArray.map((item) => {
       return {
-        price: item, 
-        quantity: 1, // Adjust the quantity based on your cart later!
+        price: item.priceId, 
+        quantity: item.qty, 
       };
     });
 
-    console.log("Line Items for Stripe Checkout:");
-    console.log(lineItems);
-
-    const session = await stripeSecret.checkout.sessions.create({
+    const session = await stripeTestSecret.checkout.sessions.create({
       line_items: lineItems,
       mode: 'payment',
       success_url: `${url}/success`,
       cancel_url: `${url}/cancel`,
     });
 
-    console.log("Stripe Checkout Session created successfully");
     console.log("Session URL:", session.url);
 
     res.json({ sessionUrl: session.url });
@@ -86,6 +107,9 @@ router.post("/Checkout", async (req, res) => {
     res.status(500).json({ error: "An error occurred" });
   }
 });
+
+
+
 
 
 
