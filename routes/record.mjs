@@ -99,7 +99,7 @@ router.post("/Checkout", async (req, res) => {
       cancel_url: `${url}/cancel`,
     });
 
-    console.log("Session URL:", session.url);
+    console.log("Session URL: ", session.url);
 
     res.json({ sessionUrl: session.url });
   } catch (e) {
@@ -107,10 +107,5 @@ router.post("/Checkout", async (req, res) => {
     res.status(500).json({ error: "An error occurred" });
   }
 });
-
-
-
-
-
 
 export default router;
