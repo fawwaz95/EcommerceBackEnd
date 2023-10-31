@@ -111,7 +111,7 @@ router.post("/Checkout", async (req, res) => {
   }
 });
 
-app.get(`${url}/success`, async (req, res) => {
+router.get(`${url}/success`, async (req, res) => {
   const session = await stripe.checkout.sessions.retrieve(req.query.session_id);
   const customer = await stripe.customers.retrieve(session.customer);
 
