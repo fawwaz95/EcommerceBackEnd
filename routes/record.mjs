@@ -98,7 +98,7 @@ router.post("/Checkout", async (req, res) => {
     const session = await stripeTestSecret.checkout.sessions.create({
       line_items: lineItems,
       mode: 'payment',
-      redirect_url: `${url}/success?session_id=${CHECKOUT_SESSION_ID}`,
+      success_url: `${url}/order/success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${url}/cancel`,
     });
 
