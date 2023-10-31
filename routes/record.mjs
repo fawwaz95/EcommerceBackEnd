@@ -70,11 +70,13 @@ router.post("/stripeGetProds", async (req, res) => {
       }
     });
 
-    console.log("productArray /stripeGetProds");
-    console.log(productArray);
+    const removeUndefined = productArray.filter(item => item !== undefined);
+    const productCartArray = removeUndefined;
+    console.log("productCartArray /stripeGetProds");
+    console.log(productCartArray);
 
     res.setHeader('Cache-Control', 'no-store');
-    res.json(productArray).status(200);
+    res.json(productCartArray).status(200);
   } catch (error) {
     console.error("Error fetching products:", error);
     res.status(500).json({ error: "Internal Server Error" });
