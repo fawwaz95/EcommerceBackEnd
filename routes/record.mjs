@@ -98,7 +98,7 @@ router.post("/Checkout", async (req, res) => {
     const session = await stripeTestSecret.checkout.sessions.create({
       line_items: lineItems,
       mode: 'payment',
-      redirect_url: `${url}/success?session_id=${CHECKOUT_SESSION_ID}`,
+      sucess_url: `${url}/success?session_id=${CHECKOUT_SESSION_ID}`,
       cancel_url: `${url}/cancel`,
     });
 
@@ -111,7 +111,7 @@ router.post("/Checkout", async (req, res) => {
   }
 });
 
-router.get(`${url}/success`, async (req, res) => {
+router.get(`order/success`, async (req, res) => {
   const session = await stripe.checkout.sessions.retrieve(req.query.session_id);
   const customer = await stripe.customers.retrieve(session.customer);
 
