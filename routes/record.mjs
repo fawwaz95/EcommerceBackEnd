@@ -61,7 +61,7 @@ router.post("/stripeGetProds", async (req, res) => {
         return cartItemProd.includes(stripeProd);
       });
 
-      if (cartObj) {
+      if (cartObj && cartObj !== undefined) {
         return {
           priceId: prodItems.default_price,
           prodName: prodItems.description,
@@ -72,6 +72,7 @@ router.post("/stripeGetProds", async (req, res) => {
 
     const removeUndefined = productArray.filter(item => item !== undefined);
     const productCartArray = removeUndefined;
+
     console.log("productCartArray /stripeGetProds");
     console.log(productCartArray);
 
@@ -97,7 +98,7 @@ router.post("/Checkout", async (req, res) => {
     const session = await stripeTestSecret.checkout.sessions.create({
       line_items: lineItems,
       mode: 'payment',
-      success_url: `${url}/success`,
+      success_url: `${url}/success?session_id=${CHECKOUT_SESSION_ID}`,
       cancel_url: `${url}/cancel`,
     });
 
@@ -108,6 +109,13 @@ router.post("/Checkout", async (req, res) => {
     console.error("Error on Stripe checkout session:", e);
     res.status(500).json({ error: "An error occurred" });
   }
+});
+
+app.get(`${url}/success`, async (req, res) => {
+  const session = await stripe.checkout.sessions.retrieve(req.query.session_id);
+  const customer = await stripe.customers.retrieve(session.customer);
+
+  res.send(`<html><body><h1>Thanks for your order, Testing Name!</h1></body></html>`);
 });
 
 export default router;
