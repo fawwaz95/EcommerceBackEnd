@@ -103,11 +103,8 @@ router.post("/Checkout", async (req, res) => {
     });
 
     console.log("Session URL: ", session.url);
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
 
-    res.redirect(303, session.url);
+    res.json({session});
   } catch (e) {
     console.error("Error on Stripe checkout session:", e);
     res.status(500).json({ error: "An error occurred" });
