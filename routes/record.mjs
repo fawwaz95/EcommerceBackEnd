@@ -1,4 +1,5 @@
 import express from "express";
+import cors from "cors";
 import db from "../db/conn.mjs";
 import { ObjectId } from "mongodb";
 import data from "../db/data.js";
