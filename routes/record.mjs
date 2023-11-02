@@ -104,7 +104,7 @@ router.post("/Checkout", async (req, res) => {
 
     console.log("Session URL: ", session.url);
 
-    res.json({session});
+    res.json(session);
   } catch (e) {
     console.error("Error on Stripe checkout session:", e);
     res.status(500).json({ error: "An error occurred" });
