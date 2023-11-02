@@ -10,6 +10,8 @@ const url = "https://paixamour.netlify.app/"
 const stripeLiveSecret = await stripe("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");
 const stripeTestSecret = await stripe("sk_test_51NsCgFAPtj0Vd4Luk30RAsMz8znGEQvepK26102pX4KXgUSBDuEQYleMI4tmM2lcYDjeoB2p47FAyTOIaJ6v5mkQ00Mfe4rjfW");
 
+router.use(cors());
+
 const formatProdName = (prodName) => {
   const productName = prodName.toLowerCase().replace(/\s/g, '');
   return productName;
