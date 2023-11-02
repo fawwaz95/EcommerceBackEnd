@@ -112,7 +112,7 @@ router.post("/Checkout", async (req, res) => {
 });
 
 router.get(`order/success?session_id={CHECKOUT_SESSION_ID}`, async (req, res) => {
-  console.log("inside order/success");
+  console.log("inside order/success ");
   const session = await stripe.checkout.sessions.retrieve(req.query.session_id);
   const customer = await stripe.customers.retrieve(session.customer);
 
