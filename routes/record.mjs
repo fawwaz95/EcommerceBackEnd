@@ -106,6 +106,11 @@ router.post("/Checkout", async (req, res) => {
     console.log("check session id");
     console.log(session.id);
 
+    const retrievSession = await stripeTestSecret.checkout.sessions.retrieve(session.id);
+
+    console.log("Retrieve Session object.....");
+    console.log(retrievSession);
+
     res.json({ sessionUrl: session.url });
   } catch (e) {
     console.error("Error on Stripe checkout session:", e);
@@ -113,10 +118,7 @@ router.post("/Checkout", async (req, res) => {
   }
 });
 
-const retrievSession = await stripeTestSecret.checkout.sessions.retrieve(session.id);
 
-console.log("Retrieve Session object.....");
-console.log(retrievSession);
 
 
 router.get(`order/success`, async (req, res) => {
