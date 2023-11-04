@@ -85,7 +85,7 @@ router.post("/stripeGetProds", async (req, res) => {
 });
 
 
-router.get(`${url}/ecommerce/order/success`, async (req, res) => {
+router.get(`order/success`, async (req, res) => {
   console.log("inside order/success ");
   const session = await stripeTestSecret.checkout.sessions.retrieve(req.query.session_id);
   const customer = await stripeTestSecret.customers.retrieve(session.customer);
