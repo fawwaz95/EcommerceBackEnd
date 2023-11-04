@@ -102,14 +102,14 @@ router.post("/Checkout", async (req, res) => {
       cancel_url: `${url}/cancel`,
     });
 
-    console.log("Session URL: ", session.url);
+    /*console.log("Session URL: ", session.url);
     console.log("check session id");
     console.log(session.id);
 
     const retrievSession = await stripeTestSecret.checkout.sessions.retrieve(session.id);
 
     console.log("Retrieve Session object.....");
-    console.log(retrievSession);
+    console.log(retrievSession);*/
 
     res.json({ sessionUrl: session.url });
   } catch (e) {
@@ -121,7 +121,7 @@ router.post("/Checkout", async (req, res) => {
 
 
 
-router.get(`order/success`, async (req, res) => {
+router.get(`${url}/order/success?session_id=${session.id}`, async (req, res) => {
   console.log("inside order/success ");
   const session = await stripeTestSecret.checkout.sessions.retrieve(req.query.session_id);
   const customer = await stripeTestSecret.customers.retrieve(session.customer);
