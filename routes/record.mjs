@@ -113,9 +113,9 @@ router.post("/Checkout", async (req, res) => {
   }
 });
 
-const session = await stripeTestSecret.checkout.sessions.retrieve(
+/*const session = await stripeTestSecret.checkout.sessions.retrieve(
   'cs_test_a1a34dy6OTuMZ5iTlEgSRerjZZScf84Hcan88IV7n3Fdusi2f5F1FU58af'
-);
+);*/
 
 router.get(`order/success`, async (req, res) => {
   console.log("inside order/success ");
