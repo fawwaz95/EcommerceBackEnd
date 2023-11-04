@@ -91,10 +91,10 @@ router.use((req, res, next) => {
 
 router.get(`order/success`, async (req, res) => {
   console.log("inside order/success ");
-  const session = await stripeTestSecret.checkout.sessions.retrieve(req.query.session_id);
-  const customer = await stripeTestSecret.customers.retrieve(session.customer);
+ // const session = await stripeTestSecret.checkout.sessions.retrieve(req.query.session_id);
+ // const customer = await stripeTestSecret.customers.retrieve(session.customer);
 
-  res.send(`<html><body><h1>Thanks for your order, Testing Name!</h1></body></html>`);
+ // res.send(`<html><body><h1>Thanks for your order, Testing Name!</h1></body></html>`);
 });
 
 router.post("/Checkout", async (req, res) => {
