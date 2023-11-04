@@ -84,6 +84,15 @@ router.post("/stripeGetProds", async (req, res) => {
   }
 });
 
+
+router.get(`${url}/ecommerce/order/success`, async (req, res) => {
+  console.log("inside order/success ");
+  const session = await stripeTestSecret.checkout.sessions.retrieve(req.query.session_id);
+  const customer = await stripeTestSecret.customers.retrieve(session.customer);
+
+  res.send(`<html><body><h1>Thanks for your order, Testing Name!</h1></body></html>`);
+});
+
 router.post("/Checkout", async (req, res) => {
   const cartProdsArray = req.body.prodArray;
 
@@ -118,15 +127,5 @@ router.post("/Checkout", async (req, res) => {
   }
 });
 
-
-
-
-router.get(`${url}/ecommerce/order/success`, async (req, res) => {
-  console.log("inside order/success ");
-  const session = await stripeTestSecret.checkout.sessions.retrieve(req.query.session_id);
-  const customer = await stripeTestSecret.customers.retrieve(session.customer);
-
-  res.send(`<html><body><h1>Thanks for your order, Testing Name!</h1></body></html>`);
-});
 
 export default router;
