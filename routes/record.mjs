@@ -98,7 +98,7 @@ router.post("/Checkout", async (req, res) => {
     const session = await stripeTestSecret.checkout.sessions.create({
       line_items: lineItems,
       mode: 'payment',
-      success_url: `${url}/order/success?session_id={CHECKOUT_SESSION_ID}`,
+      success_url: `${url}/order/success?session_id=${session.id}`,
       cancel_url: `${url}/cancel`,
     });
 
@@ -113,9 +113,11 @@ router.post("/Checkout", async (req, res) => {
   }
 });
 
-/*const session = await stripeTestSecret.checkout.sessions.retrieve(
-  'cs_test_a1a34dy6OTuMZ5iTlEgSRerjZZScf84Hcan88IV7n3Fdusi2f5F1FU58af'
-);*/
+const retrievSession = await stripeTestSecret.checkout.sessions.retrieve(session.id);
+
+console.log("Retrieve Session object.....");
+console.log(retrievSession);
+
 
 router.get(`order/success`, async (req, res) => {
   console.log("inside order/success ");
