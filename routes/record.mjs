@@ -6,7 +6,7 @@ import stripe from "stripe";
 
 const router = express.Router();
 const shopCollection = await db.collection("shop");
-const url = "https://paixamour.netlify.app/"
+const url = "https://paixamour.netlify.app"
 const stripeLiveSecret = await stripe("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");
 const stripeTestSecret = await stripe("sk_test_51NsCgFAPtj0Vd4Luk30RAsMz8znGEQvepK26102pX4KXgUSBDuEQYleMI4tmM2lcYDjeoB2p47FAyTOIaJ6v5mkQ00Mfe4rjfW");
 
@@ -98,7 +98,7 @@ router.post("/Checkout", async (req, res) => {
     const session = await stripeTestSecret.checkout.sessions.create({
       line_items: lineItems,
       mode: 'payment',
-      success_url: `${url}/order/success`, //`${url}/order/success?session_id={CHECKOUT_SESSION_ID}`
+      success_url: `${url}/ecommerce/order/success`, //`${url}/order/success?session_id={CHECKOUT_SESSION_ID}`
       cancel_url: `${url}/cancel`,
     });
 
@@ -121,7 +121,7 @@ router.post("/Checkout", async (req, res) => {
 
 
 
-router.get(`${url}/order/success`, async (req, res) => {
+router.get(`${url}/ecommerce/order/success`, async (req, res) => {
   console.log("inside order/success ");
   const session = await stripeTestSecret.checkout.sessions.retrieve(req.query.session_id);
   const customer = await stripeTestSecret.customers.retrieve(session.customer);
