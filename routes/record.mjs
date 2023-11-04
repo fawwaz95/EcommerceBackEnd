@@ -84,6 +84,10 @@ router.post("/stripeGetProds", async (req, res) => {
   }
 });
 
+router.use((req, res, next) => {
+  console.log('Middleware: Request received');
+  next();
+});
 
 router.get(`order/success`, async (req, res) => {
   console.log("inside order/success ");
