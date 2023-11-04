@@ -104,7 +104,7 @@ router.post("/Checkout", async (req, res) => {
 
     console.log("Session URL: ", session.url);
     console.log("check session id");
-    console.log(CHECKOUT_SESSION_ID);
+    console.log(session.id);
 
     res.json({ sessionUrl: session.url });
   } catch (e) {
