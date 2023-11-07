@@ -89,12 +89,9 @@ router.use((req, res, next) => {
   next();
 });
 
-router.get(`order/success`, async (req, res) => {
+router.get("/order/success", async (req, res) => {
   console.log("inside order/success ");
- // const session = await stripeTestSecret.checkout.sessions.retrieve(req.query.session_id);
- // const customer = await stripeTestSecret.customers.retrieve(session.customer);
-
- // res.send(`<html><body><h1>Thanks for your order, Testing Name!</h1></body></html>`);
+  res.send("SUCCESS HIT ENDPOINT /order/success").status(200);
 });
 
 router.post("/Checkout", async (req, res) => {
