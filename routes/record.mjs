@@ -91,7 +91,7 @@ router.use((req, res, next) => {
 
 router.get("/order/success", async (req, res) => {
   console.log("inside order/success ");
-  res.send("SUCCESS HIT ENDPOINT /order/success").status(200);
+  res.send(`<html><body><h1>Thanks for your order, ${customer.name}!</h1></body></html>`);
 });
 
 router.post("/Checkout", async (req, res) => {
