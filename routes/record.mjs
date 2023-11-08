@@ -87,7 +87,7 @@ router.post("/stripeGetProds", async (req, res) => {
 
 router.get("/session_status", async (req, res) => {
   console.log("inside /session_status ");
-  /*const session = await stripeTestSecret.checkout.sessions.retrieve(req.query.session_id);
+  const session = await stripeTestSecret.checkout.sessions.retrieve(req.query.session_id);
   const customer = await stripeTestSecret.customers.retrieve(session.customer);
 
   console.log("Got customer");
@@ -97,8 +97,7 @@ router.get("/session_status", async (req, res) => {
     status: session.status,
     payment_status: session.payment_status,
     customer_email: customer.email
-  });*/
-  res.send(`<html><body><h1>Thanks for your order, TEST!</h1></body></html>`);
+  });
 });
 
 router.post("/Checkout", async (req, res) => {
