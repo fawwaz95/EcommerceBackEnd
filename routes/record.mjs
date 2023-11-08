@@ -116,7 +116,7 @@ router.post("/Checkout", async (req, res) => {
       cancel_url: `${url}/cancel`,
     });
 
-    res.status(200).json(session);
+    res.status(200).json({session: session});
   } catch (e) {
     console.error("Error on Stripe checkout session:", e);
     res.status(500).json({ error: "An error occurred" });
