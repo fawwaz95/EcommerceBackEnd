@@ -84,14 +84,18 @@ router.post("/stripeGetProds", async (req, res) => {
   }
 });
 
-router.use((req, res, next) => {
-  console.log('Middleware: Request received');
-  next();
-});
 
-router.get("/order/success", async (req, res) => {
-  console.log("inside order/success ");
-  res.send(`<html><body><h1>Thanks for your order, TEST!</h1></body></html>`);
+router.get("/session_status", async (req, res) => {
+  console.log("inside /session_status ");
+  const session = await stripeTestSecret.checkout.sessions.retrieve(req.query.session_id);
+  const customer = await stripeTestSecret.customers.retrieve(session.customer);
+
+  res.send({
+    status: session.status,
+    payment_status: session.payment_status,
+    customer_email: customer.email
+  });
+ // res.send(`<html><body><h1>Thanks for your order, TEST!</h1></body></html>`);
 });
 
 router.post("/Checkout", async (req, res) => {
@@ -108,20 +112,11 @@ router.post("/Checkout", async (req, res) => {
     const session = await stripeTestSecret.checkout.sessions.create({
       line_items: lineItems,
       mode: 'payment',
-      success_url: `${url}/ecommerce/order/success`, //`${url}/order/success?session_id={CHECKOUT_SESSION_ID}`
+      return_url:`${url}/session_status?session_id={CHECKOUT_SESSION_ID}`,  //`${url}/ecommerce/order/success`
       cancel_url: `${url}/cancel`,
     });
 
-    /*console.log("Session URL: ", session.url);
-    console.log("check session id");
-    console.log(session.id);
-
-    const retrievSession = await stripeTestSecret.checkout.sessions.retrieve(session.id);
-
-    console.log("Retrieve Session object.....");
-    console.log(retrievSession);*/
-
-    res.json({ sessionUrl: session.url });
+    res.status(200).json({ sessionUrl: session.url });
   } catch (e) {
     console.error("Error on Stripe checkout session:", e);
     res.status(500).json({ error: "An error occurred" });
