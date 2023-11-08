@@ -88,16 +88,17 @@ router.post("/stripeGetProds", async (req, res) => {
 router.get("/session_status", async (req, res) => {
   console.log("inside /session_status ");
   const session = await stripeTestSecret.checkout.sessions.retrieve(req.query.session_id);
-  //const customer = await stripeTestSecret.customers.retrieve(session.customer);
+  const customerName = await stripeTestSecret.customers.retrieve(session.name);
 
   console.log("/session_status Got session");
   console.log(session);
-
-  res.send(/*{
-    status: session.status,
+  
+  res.send({
+    status: session.customer_details.status,
     payment_status: session.payment_status,
-    customer_email: customer.email
-  }*/ "Got session thin ggg");
+    customer_name: session.customer_details.name,
+    customer_email: session.customer_details.email,
+  });
 });
 
 router.post("/Checkout", async (req, res) => {
