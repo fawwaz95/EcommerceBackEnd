@@ -88,11 +88,11 @@ router.post("/stripeGetProds", async (req, res) => {
 router.get("/session_status", async (req, res) => {
   console.log("inside /session_status ");
   const session = await stripeTestSecret.checkout.sessions.retrieve(req.query.session_id);
-  const customerName = await stripeTestSecret.customers.retrieve(session.name);
+ // const customerName = await stripeTestSecret.customers.retrieve(session.name);
 
   console.log("/session_status Got session");
   console.log(session);
-  
+
   res.send({
     status: session.customer_details.status,
     payment_status: session.payment_status,
