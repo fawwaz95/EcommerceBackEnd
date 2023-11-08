@@ -6,7 +6,7 @@ import stripe from "stripe";
 
 const router = express.Router();
 const shopCollection = await db.collection("shop");
-const url = "https://paixandamourserver.onrender.com"
+const url = "https://paixandamourserver.onrender.com/ecommerce"
 const stripeLiveSecret = await stripe("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");
 const stripeTestSecret = await stripe("sk_test_51NsCgFAPtj0Vd4Luk30RAsMz8znGEQvepK26102pX4KXgUSBDuEQYleMI4tmM2lcYDjeoB2p47FAyTOIaJ6v5mkQ00Mfe4rjfW");
 
