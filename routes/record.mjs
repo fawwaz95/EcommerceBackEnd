@@ -93,12 +93,21 @@ router.get("/session_status", async (req, res) => {
   console.log("/session_status Got session");
   console.log(session);
 
-  res.send({
+  const retrieveSession = {
     status: session.customer_details.status,
     payment_status: session.payment_status,
     customer_name: session.customer_details.name,
     customer_email: session.customer_details.email,
-  });
+  }
+
+  /*res.send({
+    status: session.customer_details.status,
+    payment_status: session.payment_status,
+    customer_name: session.customer_details.name,
+    customer_email: session.customer_details.email,
+  });*/
+
+  res.status(200).json(retrieveSession);
 });
 
 router.post("/Checkout", async (req, res) => {
