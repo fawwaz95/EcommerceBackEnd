@@ -90,6 +90,9 @@ router.get("/session_status", async (req, res) => {
   const session = await stripeTestSecret.checkout.sessions.retrieve(req.query.session_id);
   const customer = await stripeTestSecret.customers.retrieve(session.customer);
 
+  console.log("Got customer");
+  console.log(customer);
+
   res.send({
     status: session.status,
     payment_status: session.payment_status,
@@ -112,12 +115,9 @@ router.post("/Checkout", async (req, res) => {
     const session = await stripeTestSecret.checkout.sessions.create({
       line_items: lineItems,
       mode: 'payment',
-      success_url:`${url}/session_status?session_id={CHECKOUT_SESSION_ID}`,  //`${url}/ecommerce/order/success`
-      cancel_url: `${url}/cancel`,
+     // success_url:`${url}/session_status?session_id={CHECKOUT_SESSION_ID}`,  //`${url}/ecommerce/order/success`
+     // cancel_url: `${url}/cancel`,
     });
-
-    console.log("SESSION????????????????");
-    console.log(session);
 
     const sanitizedSession = {
       session_id: session.id,
