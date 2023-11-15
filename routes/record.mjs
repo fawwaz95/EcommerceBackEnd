@@ -99,7 +99,6 @@ router.get("/session_status", async (req, res) => {
     customer_name: session.customer_details.name,
     customer_email: session.customer_details.email,
   }
-
   /*res.send({
     status: session.customer_details.status,
     payment_status: session.payment_status,
