@@ -1,10 +1,10 @@
-import express from "express";
-import cors from "cors";
-import "../db/loadEnvironment.mjs";
-import records from "../routes/record.mjs";
-import conn from "../db/conn.mjs";
-import { Db } from "mongodb";
-import path from "path";
+const express = require("express");
+const cors = require("cors");
+require("../db/loadEnvironment.js");
+const records = require("../routes/record.js");
+const conn = require("../db/conn.js");
+const { Db } = require("mongodb");
+const path = require("path");
 
 const PORT = process.env.PORT || 3001;
 const app = express();
@@ -18,5 +18,3 @@ app.use("/ecommerce", records);
 app.listen(PORT, () => {
   console.log(`Server is running on port: ${PORT}`);
 });
-
-

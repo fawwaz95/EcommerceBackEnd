@@ -1,4 +1,4 @@
-import db from "./conn.mjs";
+const db = require("./conn.js");
 
 const data = async () => {
     const collection = db.collection("shop");
@@ -97,4 +97,4 @@ const data = async () => {
     console.log(`${result.insertedCount} documents inserted`);
 }
 
-export default data;
+module.exports = data;
