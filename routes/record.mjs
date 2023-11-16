@@ -3,6 +3,8 @@ import db from "../db/conn.mjs";
 import { ObjectId } from "mongodb";
 import data from "../db/data.js";
 import stripe from "stripe";
+import ReactDOMServer from 'react-dom/server';
+import SuccessfulPayment from '../../frontend/src/components/SuccessfulPayment';
 
 const router = express.Router();
 const shopCollection = await db.collection("shop");
@@ -99,6 +101,13 @@ router.get("/session_status", async (req, res) => {
     customer_name: session.customer_details.name,
     customer_email: session.customer_details.email,
   }
+
+
+    // Render your React component to HTML string
+    const componentHTML = ReactDOMServer.renderToString(
+      <SuccessfulPayment sessionData={retrieveSession} />
+    );
+
   /*res.send({
     status: session.customer_details.status,
     payment_status: session.payment_status,
@@ -106,7 +115,8 @@ router.get("/session_status", async (req, res) => {
     customer_email: session.customer_details.email,
   });*/
 
-  res.status(200).json(retrieveSession);
+  //res.status(200).json(retrieveSession);
+  res.send(componentHTML);
 });
 
 router.post("/Checkout", async (req, res) => {
