@@ -3,6 +3,9 @@ const db = require("../db/conn.js");
 const data = require("../db/data.js");
 const stripe = require("stripe");
 const ReactDOMServer = require('react-dom/server');
+
+const url = "https://paixandamourserver.onrender.com/ecommerce"
+//const stripeLiveSecret = await stripe("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");
 //const SuccessfulPayment = require('../../frontend/src/components/SuccessfulPayment.js');
 
 const router = express.Router();
