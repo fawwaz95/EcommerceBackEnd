@@ -4,7 +4,7 @@ const data = require("../db/data.js");
 const stripe = require("stripe");
 const React = require("react");
 const { renderToString } = require('react-dom/server');
-//const SuccessfulPayment = require('../ssr/SuccessfulPayment.jsx');
+const SuccessfulPayment = require('../ssr/SuccessfulPayment.jsx');
 
 const url = "https://paixandamourserver.onrender.com/ecommerce";
 const router = express.Router();
@@ -87,7 +87,7 @@ router.get("/session_status", async (req, res) => {
     const stripeTestSecret = stripe("sk_test_51NsCgFAPtj0Vd4Luk30RAsMz8znGEQvepK26102pX4KXgUSBDuEQYleMI4tmM2lcYDjeoB2p47FAyTOIaJ6v5mkQ00Mfe4rjfW");
     const session = await stripeTestSecret.checkout.sessions.retrieve(req.query.session_id);
 
-    //const appString = renderToString(<SuccessfulPayment />);
+    const appString = renderToString(<SuccessfulPayment />);
 
     const retrieveSession = {
       status: session.customer_details.status,
@@ -101,10 +101,10 @@ router.get("/session_status", async (req, res) => {
       <div> ${ReactDOMServer.renderToString(SuccessfulPayment.default ? SuccessfulPayment.default : SuccessfulPayment)} </div> 
     </div>`);*/
 
-    /*res.send(template({
+    res.send(template({
       body: appString,
       title: 'Hello World from the server'
-    }));*/
+    }));
 
     res.send("SUCCESSSSSSSSSSSSSS");
 
