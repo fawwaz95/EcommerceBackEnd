@@ -1,10 +1,10 @@
 const express = require("express");
-const db = require("../db/conn.js");
+const getDBConnection = require("../db/conn.js");
 const data = require("../db/data.js");
 const stripe = require("stripe");
 const React = require("react");
 const { renderToString } = require('react-dom/server');
-const SuccessfulPayment = require('../ssr/SuccessfulPayment.jsx');
+//const SuccessfulPayment = require('../ssr/SuccessfulPayment.jsx');
 
 const url = "https://paixandamourserver.onrender.com/ecommerce";
 const router = express.Router();
@@ -17,12 +17,14 @@ const formatProdName = (prodName) => {
 }
 
 router.get("/Shop", async (req, res) => {
+  const db = await getDBConnection();
   const shopCollection = await db.collection("shop");
   const results = await shopCollection.find({}).toArray();
-  res.send(results).status(200);
+  res.json(results).status(200);
 });
 
 router.get("/ProductID/:id", async (req, res) => {
+  const db = await getDBConnection();
   const shopCollection = await db.collection("shop");
   const prodId = req.params.id;
   const results = await shopCollection.find({ "_id": prodId }).toArray();
@@ -30,6 +32,7 @@ router.get("/ProductID/:id", async (req, res) => {
 });
 
 router.get("/Item/:item", async (req, res) => {
+  const db = await getDBConnection();
   const shopCollection = await db.collection("shop");
   const prodName = req.params.item;
   const results = await shopCollection.find({"item": {$regex: prodName, $options: "i"}}).toArray();
@@ -84,7 +87,7 @@ router.get("/session_status", async (req, res) => {
     const stripeTestSecret = stripe("sk_test_51NsCgFAPtj0Vd4Luk30RAsMz8znGEQvepK26102pX4KXgUSBDuEQYleMI4tmM2lcYDjeoB2p47FAyTOIaJ6v5mkQ00Mfe4rjfW");
     const session = await stripeTestSecret.checkout.sessions.retrieve(req.query.session_id);
 
-    const appString = renderToString(<SuccessfulPayment />);
+    //const appString = renderToString(<SuccessfulPayment />);
 
     const retrieveSession = {
       status: session.customer_details.status,
@@ -98,10 +101,12 @@ router.get("/session_status", async (req, res) => {
       <div> ${ReactDOMServer.renderToString(SuccessfulPayment.default ? SuccessfulPayment.default : SuccessfulPayment)} </div> 
     </div>`);*/
 
-    res.send(template({
+    /*res.send(template({
       body: appString,
       title: 'Hello World from the server'
-    }));
+    }));*/
+
+    res.send("SUCCESSSSSSSSSSSSSS");
 
   } catch (error) {
     console.error("Error on retrieving session:", error);
