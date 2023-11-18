@@ -2,13 +2,14 @@ const express = require("express");
 const db = require("../db/conn.js");
 const data = require("../db/data.js");
 const stripe = require("stripe");
-const ReactDOMServer = require('react-dom/server');
+const React = require("react");
+const { renderToString } = require('react-dom/server');
+const SuccessfulPayment = require('../ssr/SuccessfulPayment.jsx');
 
-const url = "https://paixandamourserver.onrender.com/ecommerce"
-//const stripeLiveSecret = await stripe("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");
-//const SuccessfulPayment = require('../../frontend/src/components/SuccessfulPayment.js');
-
+const url = "https://paixandamourserver.onrender.com/ecommerce";
 const router = express.Router();
+//const stripeLiveSecret = await stripe("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");
+
 
 const formatProdName = (prodName) => {
   const productName = prodName.toLowerCase().replace(/\s/g, '');
@@ -83,6 +84,8 @@ router.get("/session_status", async (req, res) => {
     const stripeTestSecret = stripe("sk_test_51NsCgFAPtj0Vd4Luk30RAsMz8znGEQvepK26102pX4KXgUSBDuEQYleMI4tmM2lcYDjeoB2p47FAyTOIaJ6v5mkQ00Mfe4rjfW");
     const session = await stripeTestSecret.checkout.sessions.retrieve(req.query.session_id);
 
+    const appString = renderToString(<SuccessfulPayment />);
+
     const retrieveSession = {
       status: session.customer_details.status,
       payment_status: session.payment_status,
@@ -95,7 +98,10 @@ router.get("/session_status", async (req, res) => {
       <div> ${ReactDOMServer.renderToString(SuccessfulPayment.default ? SuccessfulPayment.default : SuccessfulPayment)} </div> 
     </div>`);*/
 
-    res.send("SUCCESSFUL PAYMENT");
+    res.send(template({
+      body: appString,
+      title: 'Hello World from the server'
+    }));
 
   } catch (error) {
     console.error("Error on retrieving session:", error);

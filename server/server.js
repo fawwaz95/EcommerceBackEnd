@@ -6,6 +6,8 @@ const conn = require("../db/conn.js");
 const { Db } = require("mongodb");
 const path = require("path");
 
+require('@babel/register');
+
 const PORT = process.env.PORT || 3001;
 const app = express();
 
