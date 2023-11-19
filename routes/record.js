@@ -106,15 +106,14 @@ router.get("/session_status", async (req, res) => {
     console.log("Session obj");
     console.log(session);
 
-    /*const retrieveSession = {
-      status: session.customer_details.status,
-      payment_status: session.payment_status,
+    const retrieveSession = {
+      address: customer_details.address ? customer_details.address : "",
       customer_name: session.customer_details.name,
       customer_email: session.customer_details.email,
-    }*/
+    }
 
     try {
-      const appString = renderToString(<SuccessfulPayment session={session}/>); // Render your React component to string
+      const appString = renderToString(<SuccessfulPayment session={retrieveSession}/>); // Render your React component to string
   
       const renderedHTML = templateFile({ body: appString, title: 'SSR TITLEEEEEEEEEEEEEEEEEEEE' }); // Pass the component string to the template
       return res.send(renderedHTML);
