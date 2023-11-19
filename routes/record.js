@@ -106,7 +106,7 @@ router.get("/session_status", async (req, res) => {
       title: 'Hello World from the server'
     }));
 
-    res.send("SUCCESSSSSSSSSSSSSS");
+    //res.send("SUCCESSSSSSSSSSSSSS");
 
   } catch (error) {
     console.error("Error on retrieving session:", error);
