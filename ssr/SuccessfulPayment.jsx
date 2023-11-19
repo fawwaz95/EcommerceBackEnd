@@ -8,6 +8,9 @@ const SuccessfulPayment = ({session}) => {
             <div>
                 <p>{customer_email}</p>
             </div>
+            <div>
+                <p>JSON.stringify({session})</p>
+            </div>
         </div>
     );
 };
