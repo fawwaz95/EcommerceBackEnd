@@ -85,23 +85,23 @@ router.post("/stripeGetProds", async (req, res) => {
 
 router.get("/session_status", async (req, res) => {
   try {
-    const stripeTestSecret = stripe("sk_test_51NsCgFAPtj0Vd4Luk30RAsMz8znGEQvepK26102pX4KXgUSBDuEQYleMI4tmM2lcYDjeoB2p47FAyTOIaJ6v5mkQ00Mfe4rjfW");
+    /*const stripeTestSecret = stripe("sk_test_51NsCgFAPtj0Vd4Luk30RAsMz8znGEQvepK26102pX4KXgUSBDuEQYleMI4tmM2lcYDjeoB2p47FAyTOIaJ6v5mkQ00Mfe4rjfW");
     const session = await stripeTestSecret.checkout.sessions.retrieve(req.query.session_id);
-
-    const appString = renderToString(<SuccessfulPayment />);
 
     const retrieveSession = {
       status: session.customer_details.status,
       payment_status: session.payment_status,
       customer_name: session.customer_details.name,
       customer_email: session.customer_details.email,
-    }
+    }*/
 
     /*
     res.send(template({
       body: appString,
       title: 'Hello World from the server'
     }));*/
+
+    const appString = renderToString(<SuccessfulPayment />);
 
     res.send(template({
       body: appString,
@@ -110,7 +110,7 @@ router.get("/session_status", async (req, res) => {
 
   } catch (error) {
     console.error("Error on retrieving session:", error);
-    res.status(500).json({ error: "Internal Server Error" });
+    res.status(500).json(error); //{ error: "Internal Server Error" }
   }
 });
 
