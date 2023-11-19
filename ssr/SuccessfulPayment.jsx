@@ -1,9 +1,12 @@
 const React = require('react');
 
-const SuccessfulPayment = () => {
+const SuccessfulPayment = ({session}) => {
     return (
         <div>
-            <h1>Successfully paid yesssirrrski</h1>
+            <h1>Tahnk you for your order!</h1>
+            <div>
+                <p>{JSON.stringify(session)}</p>
+            </div>
         </div>
     );
 };
