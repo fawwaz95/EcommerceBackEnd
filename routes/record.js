@@ -4,13 +4,28 @@ const data = require("../db/data.js");
 const stripe = require("stripe");
 const React = require("react");
 const { renderToString } = require('react-dom/server');
-const SuccessfulPayment = require('../ssr/SuccessfulPayment.jsx');
-const template = require('../ssr/template.js');
+const path = require("path");
+const fs = require("fs");
+const SuccessfulPayment = require('../ssr/SuccessfulPayment.jsx').default; 
+const templateFile = require('../ssr/template.js').default;
 
 const url = "https://paixandamourserver.onrender.com/ecommerce";
 const router = express.Router();
 //const stripeLiveSecret = await stripe("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");
 
+router.get("/testing", async (req, res) => {
+  console.log("INSIDE TESTING ROUTE");
+
+  try {
+    const appString = renderToString(<SuccessfulPayment/>); // Render your React component to string
+
+    const renderedHTML = templateFile({ body: appString, title: 'SSR TITLEEEEEEEEEEEEEEEEEEEE' }); // Pass the component string to the template
+    return res.send(renderedHTML);
+  } catch(error){
+    console.log("/testing error " + error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
 
 const formatProdName = (prodName) => {
   const productName = prodName.toLowerCase().replace(/\s/g, '');
@@ -85,7 +100,7 @@ router.post("/stripeGetProds", async (req, res) => {
 
 router.get("/session_status", async (req, res) => {
   try {
-    /*const stripeTestSecret = stripe("sk_test_51NsCgFAPtj0Vd4Luk30RAsMz8znGEQvepK26102pX4KXgUSBDuEQYleMI4tmM2lcYDjeoB2p47FAyTOIaJ6v5mkQ00Mfe4rjfW");
+    const stripeTestSecret = stripe("sk_test_51NsCgFAPtj0Vd4Luk30RAsMz8znGEQvepK26102pX4KXgUSBDuEQYleMI4tmM2lcYDjeoB2p47FAyTOIaJ6v5mkQ00Mfe4rjfW");
     const session = await stripeTestSecret.checkout.sessions.retrieve(req.query.session_id);
 
     const retrieveSession = {
@@ -93,20 +108,17 @@ router.get("/session_status", async (req, res) => {
       payment_status: session.payment_status,
       customer_name: session.customer_details.name,
       customer_email: session.customer_details.email,
-    }*/
+    }
 
-    /*
-    res.send(template({
-      body: appString,
-      title: 'Hello World from the server'
-    }));*/
-
-    const appString = renderToString(<SuccessfulPayment />);
-
-    res.send(template({
-      body: appString,
-      title: 'Hello World from SSR'
-    }));
+    try {
+      const appString = renderToString(<SuccessfulPayment session={retrieveSession}/>); // Render your React component to string
+  
+      const renderedHTML = templateFile({ body: appString, title: 'SSR TITLEEEEEEEEEEEEEEEEEEEE' }); // Pass the component string to the template
+      return res.send(renderedHTML);
+    } catch(error){
+      console.log("/testing error " + error);
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
 
   } catch (error) {
     console.error("Error on retrieving session:", error);
