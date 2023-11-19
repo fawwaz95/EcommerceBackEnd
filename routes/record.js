@@ -107,7 +107,7 @@ router.get("/session_status", async (req, res) => {
     console.log(session);
 
     const retrieveSession = {
-      address: customer_details.address ? customer_details.address : "",
+      address: session.customer_details.address ? customer_details.address : "",
       customer_name: session.customer_details.name,
       customer_email: session.customer_details.email,
     }
