@@ -5,6 +5,7 @@ const stripe = require("stripe");
 const React = require("react");
 const { renderToString } = require('react-dom/server');
 const SuccessfulPayment = require('../ssr/SuccessfulPayment.jsx');
+const template = require('../ssr/template.js');
 
 const url = "https://paixandamourserver.onrender.com/ecommerce";
 const router = express.Router();
@@ -96,17 +97,16 @@ router.get("/session_status", async (req, res) => {
       customer_email: session.customer_details.email,
     }
 
-    /*res.send(`<div>
-      <div> Sending custom payment component </div>
-      <div> ${ReactDOMServer.renderToString(SuccessfulPayment.default ? SuccessfulPayment.default : SuccessfulPayment)} </div> 
-    </div>`);*/
-
+    /*
     res.send(template({
       body: appString,
       title: 'Hello World from the server'
-    }));
+    }));*/
 
-    //res.send("SUCCESSSSSSSSSSSSSS");
+    res.send(template({
+      body: appString,
+      title: 'Hello World from SSR'
+    }));
 
   } catch (error) {
     console.error("Error on retrieving session:", error);
