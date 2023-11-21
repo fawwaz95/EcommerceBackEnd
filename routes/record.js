@@ -19,7 +19,7 @@ router.get("/testing", async (req, res) => {
   try {
     const appString = renderToString(<SuccessfulPayment/>); // Render your React component to string
 
-    const renderedHTML = templateFile({ body: appString, title: 'SSR TITLEEEEEEEEEEEEEEEEEEEE' }); // Pass the component string to the template
+    const renderedHTML = templateFile({ body: appString, title: 'Paix Amour Successful Payment' });    
     return res.send(renderedHTML);
   } catch(error){
     console.log("/testing error " + error);
@@ -103,28 +103,19 @@ router.get("/session_status", async (req, res) => {
     const stripeTestSecret = stripe("sk_test_51NsCgFAPtj0Vd4Luk30RAsMz8znGEQvepK26102pX4KXgUSBDuEQYleMI4tmM2lcYDjeoB2p47FAyTOIaJ6v5mkQ00Mfe4rjfW");
     const session = await stripeTestSecret.checkout.sessions.retrieve(req.query.session_id);
 
-    console.log("Session obj");
-    console.log(session);
-
     const retrieveSession = {
       address: session.customer_details.address ? session.customer_details.address : "",
       customer_name: session.customer_details.name,
       customer_email: session.customer_details.email,
     }
 
-    try {
-      const appString = renderToString(<SuccessfulPayment session={retrieveSession}/>); // Render your React component to string
-  
-      const renderedHTML = templateFile({ body: appString, title: 'SSR TITLEEEEEEEEEEEEEEEEEEEE' }); // Pass the component string to the template
-      return res.send(renderedHTML);
-    } catch(error){
-      console.log("/testing error " + error);
-      res.status(500).json({ error: 'Internal Server Error' });
-    }
+    const appString = renderToString(<SuccessfulPayment session={retrieveSession}/>); // Render your React component to string
+    const renderedHTML = templateFile({ body: appString, title: 'Paix Amour Successful Payment' });
+    return res.send(renderedHTML);
 
   } catch (error) {
-    console.error("Error on retrieving session:", error);
-    res.status(500).json(error); //{ error: "Internal Server Error" }
+    console.error("Error on /session_status route: ", error);
+    res.status(500).json(error);
   }
 });
 
