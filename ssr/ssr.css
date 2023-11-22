@@ -17,4 +17,6 @@
 .thankYouMsg {
     font-size: 50px;
     font-weight: bold;
+    overflow: hidden;
+    white-space: nowrap
 }
