@@ -11,7 +11,7 @@ const SuccessfulPayment = ({session}) => {
                     <p>Please allow sometime to fulfill your order.</p>
                 </div>
             </div>
-             <div>
+             <div className="link">
                 <a href="https://paixamour.netlify.app/Shop">Continue Shopping</a>
              </div>
             {/*<div>
