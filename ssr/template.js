@@ -13,7 +13,6 @@ const template = ({ body, title }) => {
           <style>
             ${styles}
           </style>
-          <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sofia">
           </head>
         <body>
           <div id="root">${body}</div>

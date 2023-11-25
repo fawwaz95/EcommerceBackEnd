@@ -1,11 +1,11 @@
 const React = require('react');
 
 const SuccessfulPayment = ({session}) => {
-    const {customer_name} = session ? customer_name : "";
+    const {customer_name: customerName = "" } = session || {};
     return (
         <div className="center font">
             <div>
-                <p className="thankYouMsg">Thank you <span className="cursive"> {customer_name ? customer_name : ""}</span></p>
+                <p className="thankYouMsg">Thank you <span className="cursive"> {customerName}</span></p>
                 <div className="content">
                     <p>Your order was completed successfully.</p>
                     <p>Please allow sometime to fulfill your order.</p>
