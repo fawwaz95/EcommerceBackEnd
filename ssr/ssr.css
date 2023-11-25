@@ -19,7 +19,7 @@
 }
 
 .cursive {
-    font-family: "Cormorant Garamond", serif, cursive;
+    font-family: "Cormorant Garamond", cursive;
 }
 
 .content{
@@ -33,13 +33,13 @@
 /*For medium to large screens*/
 @media only screen and (min-width: 750px) {
     .thankYouMsg{
-        font-size: 50px;
+        font-size: 75px;
     }
     .content{
-        font-size: 25px;
+        font-size: 50px;
     }
     .link{
-        font-size: 25px;
+        font-size: 50px;
     }
   }
   
