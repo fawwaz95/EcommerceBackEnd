@@ -11,12 +11,17 @@
 }
 
 .font {
-    font-family: 'Pacifico', cursive;
+    font-family: 'Pacifico';
 }
 
 .thankYouMsg {
-    font-size: 50px;
+    font-size: 100px;
+    font-family: 'Pacifico', cursive;
     font-weight: bold;
     overflow: hidden;
-    white-space: nowrap
+    white-space: nowrap;
+}
+
+.content{
+    font-size: 70px;
 }

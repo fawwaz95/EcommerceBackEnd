@@ -104,9 +104,7 @@ router.get("/session_status", async (req, res) => {
     const session = await stripeTestSecret.checkout.sessions.retrieve(req.query.session_id);
 
     const retrieveSession = {
-      address: session.customer_details.address ? session.customer_details.address : "",
       customer_name: session.customer_details.name,
-      customer_email: session.customer_details.email,
     }
 
     const appString = renderToString(<SuccessfulPayment session={retrieveSession}/>); // Render your React component to string
