@@ -5,10 +5,10 @@ const SuccessfulPayment = ({session}) => {
     return (
         <div className="center font">
             <div>
-                <p className="thankYouMsg">Thank you <span className="cursive"> {customerName}</span></p>
+                <p className="thankYouMsg oneLine">Thank you <span className="cursive"> {customerName}</span></p>
                 <div className="content">
-                    <p>Your order was completed successfully.</p>
-                    <p>Please allow sometime to fulfill your order.</p>
+                    <p className="oneLine">Your order was completed successfully.</p>
+                    <p className="oneLine">Please allow sometime to fulfill your order.</p>
                 </div>
             </div>
              <div className="link">
