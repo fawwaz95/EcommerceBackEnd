@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond&display=swap');
+
 .center {
     position: absolute;
     top: 50%;
@@ -7,15 +9,17 @@
 }
 
 .font {
-    font-family: 'Pacifico';
+    font-family: "Cormorant Garamond", serif;
 }
 
 .thankYouMsg {
     font-size: 100px;
-    font-family: 'Pacifico', cursive;
-    font-weight: bold;
     overflow: hidden;
     white-space: nowrap;
+}
+
+.cursive {
+    font-family: "Cormorant Garamond", serif, cursive;
 }
 
 .content{
@@ -25,7 +29,6 @@
 .link{
     font-size: 30px;
 }
-
 
 /*For medium to large screens*/
 @media only screen and (min-width: 750px) {
