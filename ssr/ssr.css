@@ -13,7 +13,7 @@
 }
 
 .thankYouMsg {
-    font-size: 50px;
+    font-size: 25px;
 }
 
 .oneLine {
@@ -26,11 +26,11 @@
 }
 
 .content{
-    font-size: 25px;
+    font-size: 15px;
 }
 
 .link{
-    font-size: 25px;
+    font-size: 15px;
 }
 
 /*For medium to large screens*/
