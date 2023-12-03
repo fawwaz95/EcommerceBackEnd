@@ -139,7 +139,6 @@ router.post("/Checkout", async (req, res) => {
           metadata: {
             order: 'order-xyz',
           },
-          account_tax_ids: ['DE123456789'],
           custom_fields: [
             {
               name: 'Purchase Order',
