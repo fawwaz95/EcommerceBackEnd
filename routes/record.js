@@ -131,8 +131,28 @@ router.post("/Checkout", async (req, res) => {
     const stripeTestSecret = stripe("sk_test_51NsCgFAPtj0Vd4Luk30RAsMz8znGEQvepK26102pX4KXgUSBDuEQYleMI4tmM2lcYDjeoB2p47FAyTOIaJ6v5mkQ00Mfe4rjfW");
 
     const session = await stripeTestSecret.checkout.sessions.create({
-      line_items: lineItems,
       mode: 'payment',
+      invoice_creation: {
+        enabled: true,
+        invoice_data: {
+          description: 'Invoice for Product X',
+          metadata: {
+            order: 'order-xyz',
+          },
+          account_tax_ids: ['DE123456789'],
+          custom_fields: [
+            {
+              name: 'Purchase Order',
+              value: 'PO-XYZ',
+            },
+          ],
+          rendering_options: {
+            amount_tax_display: '13%',
+          },
+          footer: 'Paix & Amour Inc.',
+        },
+      },
+      line_items: lineItems,
       success_url: `${url}/session_status?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${url}/cancel`,
     });
