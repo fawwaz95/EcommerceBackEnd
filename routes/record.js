@@ -147,7 +147,7 @@ router.post("/Checkout", async (req, res) => {
             },
           ],
           rendering_options: {
-            amount_tax_display: '13%',
+            amount_tax_display: 'include_inclusive_tax',
           },
           footer: 'Paix & Amour Inc.',
         },
