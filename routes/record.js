@@ -132,25 +132,6 @@ router.post("/Checkout", async (req, res) => {
 
     const session = await stripeTestSecret.checkout.sessions.create({
       mode: 'payment',
-      invoice_creation: {
-        enabled: true,
-        invoice_data: {
-          description: 'Invoice for Product X',
-          metadata: {
-            order: 'order-xyz',
-          },
-          custom_fields: [
-            {
-              name: 'Purchase Order',
-              value: 'PO-XYZ',
-            },
-          ],
-          rendering_options: {
-            amount_tax_display: 'include_inclusive_tax',
-          },
-          footer: 'Paix & Amour Inc.',
-        },
-      },
       line_items: lineItems,
       success_url: `${url}/session_status?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${url}/cancel`,
