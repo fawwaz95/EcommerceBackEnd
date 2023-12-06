@@ -14,7 +14,7 @@ const router = express.Router();
 //const stripeLiveSecret = await stripe("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");
 
 router.get("/testing", async (req, res) => {
-  console.log("INSIDE TESTING ROUTE");
+  console.log("inside testing route");
 
   try {
     const appString = renderToString(<SuccessfulPayment/>); // Render your React component to string
